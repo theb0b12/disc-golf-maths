@@ -2,7 +2,6 @@ import cv2
 import numpy as np
 
 def calculate_distanceNN(speed, glide, turn, fade):
-    # Your optimized solution vector (no bias)
     x1 = 16.3389   # Speed multiplier
     x2 = 38.3866   # Glide multiplier
     x3 = -4.4266  # Turn multiplier
@@ -14,7 +13,6 @@ def calculate_distanceNN(speed, glide, turn, fade):
     return round(distance, 1)
 
 def calculate_distanceAUG(speed, glide, turn, fade):
-    # Your optimized solution vector (no bias)
     x1 = 15.4333   # Speed multiplier
     x2 = 38.8389   # Glide multiplier
     x3 = -21.8056  # Turn multiplier
