@@ -26,7 +26,7 @@ y = torch.tensor(df['Total Distance'].values, dtype=torch.float32).unsqueeze(1)
 class DiscDistanceModel(nn.Module):
     def __init__(self):
         super(DiscDistanceModel, self).__init__()
-        self.linear = nn.Linear(in_features=4, out_features=1)
+        self.linear = nn.Linear(in_features=4, out_features=1, bias=False)
 
     def forward(self, x):
         return self.linear(x)
@@ -48,6 +48,5 @@ for epoch in range(epochs):
 
 # extract the multipliers and bias
 weights = model.linear.weight.detach().numpy()[0]
-bias = model.linear.bias.item()
 
-print(f"Total Distance = ({weights[0]:.4f} * Speed) + ({weights[1]:.4f} * Glide) + ({weights[2]:.4f} * Turn) + ({weights[3]:.4f} * Fade) + {bias:.4f}")
+print(f"Total Distance = ({weights[0]:.4f} * Speed) + ({weights[1]:.4f} * Glide) + ({weights[2]:.4f} * Turn) + ({weights[3]:.4f} * Fade)")
