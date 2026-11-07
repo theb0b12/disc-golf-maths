@@ -2,11 +2,11 @@ import cv2
 import numpy as np
 
 def calculate_distanceNN(speed, glide, turn, fade):
-    x1 = 16.3389   # Speed multiplier
-    x2 = 38.3866   # Glide multiplier
-    x3 = -4.4266  # Turn multiplier
-    x4 = 5.3333   # Fade multiplier
-    x5 = 12.6581
+    x1 = 15.5270   # Speed multiplier
+    x2 = 42.3271   # Glide multiplier
+    x3 = -6.9711  # Turn multiplier
+    x4 = -0.0419   # Fade multiplier
+    x5 = 23.6067 # bias
     
     # Equation: Distance = (x1 * Speed) + (x2 * Glide) + (x3 * Turn) + (x4 * Fade) + bias
     distance = (x1 * speed) + (x2 * glide) + (x3 * turn) + (x4 * fade) + x5
@@ -14,9 +14,9 @@ def calculate_distanceNN(speed, glide, turn, fade):
 
 def calculate_distanceAUG(speed, glide, turn, fade):
     x1 = 15.4333   # Speed multiplier
-    x2 = 38.8389   # Glide multiplier
-    x3 = -21.8056  # Turn multiplier
-    x4 = 21.8722   # Fade multiplier
+    x2 = 32.1722   # Glide multiplier
+    x3 = -15.1389  # Turn multiplier
+    x4 = 15.2056   # Fade multiplier
     
     # Equation: Distance = (x1 * Speed) + (x2 * Glide) + (x3 * Turn) + (x4 * Fade)
     distance = (x1 * speed) + (x2 * glide) + (x3 * turn) + (x4 * fade)
@@ -72,7 +72,6 @@ def extract_flight_distance(image_path):
     
     return round(estimated_distance, 1)
 
-
 def main():
     print("\nEnter path to image")
     image = input("   Path:   ")
@@ -87,11 +86,9 @@ def main():
     total_distNN = calculate_distanceNN(speed, glide, turn, fade)
     real_total_dist = extract_flight_distance(image)
 
-    print(f"Real Total Distance: {real_total_dist} feet")
-    print(f"\nEstimated Total Distance with Augmented Matrix: {total_distAUG} feet")
+    print(f"\nReal Total Distance: {real_total_dist} feet")
+    print(f"Estimated Total Distance with Augmented Matrix: {total_distAUG} feet")
     print(f"Estimated Total Distance with NN: {total_distNN} feet")
-
-        
 
 if __name__ == "__main__":
     main()

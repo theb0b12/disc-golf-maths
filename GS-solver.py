@@ -7,8 +7,8 @@ A = np.array([
     [5, 4, -1, 1]
 ], dtype=float)
 
-
-B = np.array([229.9, 245.4, 277.8, 276.2], dtype=float)
+x = 40
+B = np.array([229.9-x, 245.4-x, 277.8-x, 276.2-x], dtype=float)
 
 x = np.linalg.solve(A, B)
 

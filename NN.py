@@ -8,12 +8,16 @@ import pandas as pd
 
 
 df = pd.DataFrame({
-    'Disc Name': ['Beast', 'Eagle', 'Escape', 'Crave', 'Truth', 'Zone', 'Judge'],
-    'Speed': [10, 7, 9, 6.5, 5, 4, 2],
-    'Glide': [5, 4, 5, 5, 5, 4, 4],
-    'Turn': [-2, -1, -1, -1, -1, 0, 0],
-    'Fade': [2, 3, 2, 1, 1, 3, 1],
-    'Total Distance': [390, 305, 370, 310, 295, 240, 215]
+    'Disc Name': [
+        'Judge', 'Marshal', 'Tailor', 'Atlas', 
+        'Zombee', 'TL3', 'Orion LS', 
+        'Bleak', 'Condor', 'Gote', 'Buzzz', "Wraith", "Eagle"
+    ],
+    'Speed': [2, 3, 4, 5, 6, 8, 9, 2, 3, 4, 5,11,7],
+    'Glide': [4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 4,5,4],
+    'Turn': [0, 0, 0, 0, -1, -1, -1, -1, 0, 0, -1,-1.1,-0.9],
+    'Fade': [1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1,2.9, 2.9],
+    'Total Distance': [229.9, 242.3, 259.3, 276.2, 293.2, 328.7, 345.7, 229.9, 245.4, 277.8, 276.2,402.8,311.7]
 })
 
 
@@ -26,7 +30,7 @@ y = torch.tensor(df['Total Distance'].values, dtype=torch.float32).unsqueeze(1)
 class DiscDistanceModel(nn.Module):
     def __init__(self):
         super(DiscDistanceModel, self).__init__()
-        self.linear = nn.Linear(in_features=4, out_features=1, bias=False)
+        self.linear = nn.Linear(in_features=4, out_features=1)
 
     def forward(self, x):
         return self.linear(x)
@@ -48,5 +52,6 @@ for epoch in range(epochs):
 
 # extract the multipliers and bias
 weights = model.linear.weight.detach().numpy()[0]
+bias = model.linear.bias.item()
 
-print(f"Total Distance = ({weights[0]:.4f} * Speed) + ({weights[1]:.4f} * Glide) + ({weights[2]:.4f} * Turn) + ({weights[3]:.4f} * Fade)")
+print(f"Total Distance = ({weights[0]:.4f} * Speed) + ({weights[1]:.4f} * Glide) + ({weights[2]:.4f} * Turn) + ({weights[3]:.4f} * Fade) + {bias:.4f}")
